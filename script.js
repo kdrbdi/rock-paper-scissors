@@ -1,9 +1,23 @@
 let selection = ["rock", "paper", "scissors"];
 
-// Helper function - Capitalize
-function capitalize(str) {
-  return str[0].toUpperCase() + str.substr(1);
+// Getting random selection
+// Retrieve corresponding choice from selection array
+function getComputerChoice() {
+  let randomNum = Math.floor(Math.random() * 3);
+  return selection[randomNum];
 }
+
+// Get player choice and check valid input
+function getPlayerChoice() {
+  let playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase();
+  console.log("You chose", playerSelection);
+  while (!selection.includes(playerSelection)) {
+    playerSelection = prompt("Try again! rock, paper or scissors?");
+  }
+  console.log("You chose", playerSelection);
+  return playerSelection;
+}
+
 // Helper function - Display score
 function displayScore(playerScore, computerScore) {
   console.log(`Score: ${playerScore} - ${computerScore}`);
@@ -13,13 +27,6 @@ function displayScore(playerScore, computerScore) {
 
 function determineWinner(player, computer) {
   return player > computer ? "Player wins!" : "Player Loses :(";
-}
-
-// Getting random selection
-// Retrieve corresponding choice from selection array
-function getComputerChoice() {
-  let randomNum = Math.floor(Math.random() * 3);
-  return selection[randomNum];
 }
 
 // Scores
@@ -55,13 +62,13 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// Play 5 rounds and determine winner
+// Play first to 5 and determine winner
 function game() {
+  let counter = 1;
   while (playerScore < 5 && computerScore < 5) {
-    let counter = 1;
     // Get selections
     let computerSelection = getComputerChoice();
-    let playerSelection = prompt("Rock, Paper or Scissors ?").toLowerCase();
+    let playerSelection = getPlayerChoice();
     console.log(`-----------\nRound ${counter}\n-----------`);
     console.log(playRound(playerSelection, computerSelection));
     displayScore(playerScore, computerScore);
